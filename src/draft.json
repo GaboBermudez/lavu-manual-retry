@@ -1,0 +1,125 @@
+{
+  "NumCuenta": 3132,
+  "Documentos": [
+    {
+      "Encabezado": {
+        "CodigoActividad": 851201,
+        "CondicionVenta": 1,
+        "MedioPago": [1],
+        "Moneda": 1,
+        "NumeroFactura": "?",
+        "SituacionEnvio": 1,
+        "Sucursal": 1,
+        "Terminal": 1,
+        "TipoDoc": 1,
+        "Receptor":{
+        	"Nombre": "Receptor",
+        	"Correo": "prueba@mail.com"
+        }
+      },
+      "Lineas": [
+        {
+          "Cantidad": 3,
+          "UnidadMedida": 24,
+          "Descripcion": "Servicios profesionales",
+          "PrecioUnitario": 500000,
+          "Descuentos": [
+            {
+             "MontoDescuento": 150000,
+             "DetalleDescuento": "Se aplica descuento."
+            }
+          ],
+           "Impuestos": [
+            {
+              "CodigoImp": 1,
+              "CodigoTarifa": 8,
+              "MontoImp": 175500.00
+            }
+          ]
+        },
+        {
+          "Cantidad": 2,
+          "UnidadMedida": 2,
+          "Descripcion": "Lapiz",
+          "PrecioUnitario": 25000,
+           "Impuestos": [
+            {
+              "CodigoImp": 8,
+              "FactorIVA": 1.065,
+              "MontoImp": 32.50
+            }
+          ]
+        },
+        {
+          "Cantidad": 1,
+          "UnidadMedida": 97,
+          "Descripcion": "Alquiler de uso comercial",
+          "PrecioUnitario": 1200000,
+           "Descuentos": [
+            {
+             "MontoDescuento": 60000.00,
+             "DetalleDescuento": "Se aplica descuento."
+            }
+          ],
+           "Impuestos": [
+            {
+              "CodigoImp": 1,
+              "CodigoTarifa": 8,
+              "MontoImp": 148200.00,
+               "Exoneracion":
+              {
+              	"TipoDocExo": 1,
+              	"NumeroExo": "2312312",
+              	"NombreInstitucion": "Pruebas",
+              	"FechaExoneracion":  "2018-05-25T14:33:12",
+              	"PorcentajeExonerado": 100,
+              	"MontoExonerado": 148200.00
+              }	
+            }
+          ]
+        },
+        {
+          "Cantidad": 1,
+          "UnidadMedida": 105,
+          "Descripcion": "Alquiler de uso habitacional",
+          "PrecioUnitario": 285000.00
+        },
+        {
+          "Cantidad": 1,
+          "UnidadMedida": 102,
+          "Descripcion": "Servicios Técnicos",
+          "PrecioUnitario": 20000.00,
+           "Impuestos": [
+            {
+              "UsaServSalud": true,
+              "CodigoImp": 1,
+              "CodigoTarifa": 4,
+              "MontoImp": 800.00
+            }
+          ]
+        }
+      ],
+      "Totales": {
+        "TotalServGravado": 1520000.00,
+        "TotalServExento": 285000,
+        "TotalServExonerado": 1200000,
+        "TotalMercaGravada": 50000,
+        "TotalMercaExenta": 0,
+        "TotalMercaExonerada":0,
+        "TotalGravado": 1570000.00,
+        "TotalExento": 285000,
+        "TotalExonerado": 1200000.00,
+        "TotalIVADevuelto": 800.00,
+        "TotalOtrosCargos": 0,
+        "TotalVenta": 3055000.00,
+        "TotalDescuento": 210000,
+        "TotalVentaNeta": 2845000.00,
+        "TotalImpuesto": 176332.500,
+        "TotalComprobante": 3020532.500
+      },
+      "Otros": {
+        "Notas": "Pruebas V.3"
+      }
+    }
+  ]
+}
