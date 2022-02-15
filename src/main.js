@@ -9,16 +9,17 @@ async function main() {
   const orderId = process.argv[2];
   try {
     loggerGeneral.info('----- INICIO DE EJECUCION -----');
-    // console.log(process.argv[2]);
+    // INICIALIZACION DE LOGGERS
     const loggerOrden = Logger(orderId);
-
     loggerGeneral.info(`ORDEN: ${orderId}`);
     loggerOrden.info(`ORDEN: ${orderId}`);
 
-    const jsonToGTI = await getJSONFromLavu(orderId);
-    loggerOrden.info(`JSON PARA GTI: \n ${JSON.stringify(jsonToGTI)}`);
-    
+    // CONSULTA A LAVU POR ORDEN
     const orderToSubmit = await LavuService.getOrderGeneralInfo(orderId);
+
+    const jsonToGTI = getJSONFromLavu(orderToSubmit.elements[0]);
+    loggerOrden.info(`JSON PARA GTI: \n ${JSON.stringify(jsonToGTI)}`);
+
     return;
 
     const exemption = getRowValue(orderToSubmit, 'exemption_id');

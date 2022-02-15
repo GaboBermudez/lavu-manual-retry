@@ -3,23 +3,24 @@ import { getCustomerData, getCustomerEmail, getCustomerField, getOrderData, getR
 import { NombComercialConsts } from '../consts/Constants.js';
 import Logger, { mailLogger } from '../logger/Logger.js';
 import jsonTemplate from './InvoiceTemplate.js';
-import LavuService from '../services/LavuService.js';
 
-export async function getJSONFromLavu(orderId) {
+export function getJSONFromLavu(orderData) {
+  const orderId = getRowValue(orderData, "order_id");
   const loggerOrden = Logger(orderId);
-  // const orderData = getOrderData(orders, orderId);
-  const result = await LavuService.getOrderGeneralInfo(orderId);
-  loggerOrden.info(`DATOS DE ORDEN LAVU: \n ${JSON.stringify(result)}`);
-  // console.log(result);
-  const orderData = result.elements[0];
+  loggerOrden.info(`DATOS DE ORDEN LAVU: \n ${JSON.stringify(orderData)}`);
+
   jsonTemplate.NumCuenta = process.env.GTI_CUENTA;
   jsonTemplate.Documentos[0].Encabezado.NombComercial = NombComercialConsts[process.env.NOMBRE_COMERCIAL];
   jsonTemplate.Documentos[0].Encabezado.NumeroFactura = orderId;
   jsonTemplate.Documentos[0].Encabezado.TipoDoc = 4;
 
-  totalPrecioUnitario = roundAmount(totalPrecioUnitario);//Proceso de de cálculo para impuestos
-  const totalIva = roundAmount(totalPrecioUnitario * 0.13);
-  const totalImpServicio = roundAmount(totalPrecioUnitario * 0.10);
+  // TODO: REVISAR SI ES FACTURA O TIQUETE
+
+  // CALCULO DE IMPUESTOS
+  const total = getRowValue(orderData, "total");
+  const totalPrecioUnitario = total;
+  const totalIva = totalPrecioUnitario * 0.13;
+  const totalImpServicio = totalPrecioUnitario * 0.10;
   const totalComprobante = totalPrecioUnitario + totalIva + totalImpServicio;
 
   jsonTemplate.Documentos[0].Lineas[0].PrecioUnitario = totalPrecioUnitario
@@ -31,7 +32,7 @@ export async function getJSONFromLavu(orderId) {
   jsonTemplate.Documentos[0].Totales.TotalGravado = totalPrecioUnitario
   jsonTemplate.Documentos[0].Totales.TotalVenta = totalPrecioUnitario
   jsonTemplate.Documentos[0].Totales.TotalVentaNeta = totalPrecioUnitario
-  jsonTemplate.Documentos[0].Totales.TotalComprobante = totalComprobante.toFixed(2);
+  jsonTemplate.Documentos[0].Totales.TotalComprobante = Number(totalComprobante).toFixed(2);
 
   return totalComprobante === 0 ? false : jsonTemplate;
 }

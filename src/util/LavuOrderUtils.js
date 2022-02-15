@@ -66,6 +66,7 @@ export function getCustomerField(customer, key) {
   return field.info;
 };
 
+// REVISAR
 export function roundAmount(value, decimals = 2) {
   return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
