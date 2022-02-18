@@ -17,10 +17,10 @@ export function getJSONFromLavu(orderData) {
   // TODO: REVISAR SI ES FACTURA O TIQUETE
 
   // CALCULO DE IMPUESTOS
-  const total = getRowValue(orderData, "total");
-  const totalPrecioUnitario = total;
-  const totalIva = totalPrecioUnitario * 0.13;
-  const totalImpServicio = totalPrecioUnitario * 0.10;
+  const total = Number(getRowValue(orderData, "total"));
+  const totalPrecioUnitario = roundAmount(total / 1.23);
+  const totalImpServicio = roundAmount(totalPrecioUnitario * 0.10);
+  const totalIva = roundAmount(total - (totalPrecioUnitario + totalImpServicio));
   const totalComprobante = totalPrecioUnitario + totalIva + totalImpServicio;
 
   jsonTemplate.Documentos[0].Lineas[0].PrecioUnitario = totalPrecioUnitario
@@ -32,7 +32,7 @@ export function getJSONFromLavu(orderData) {
   jsonTemplate.Documentos[0].Totales.TotalGravado = totalPrecioUnitario
   jsonTemplate.Documentos[0].Totales.TotalVenta = totalPrecioUnitario
   jsonTemplate.Documentos[0].Totales.TotalVentaNeta = totalPrecioUnitario
-  jsonTemplate.Documentos[0].Totales.TotalComprobante = Number(totalComprobante).toFixed(2);
+  jsonTemplate.Documentos[0].Totales.TotalComprobante = totalComprobante;
 
   return totalComprobante === 0 ? false : jsonTemplate;
 }
