@@ -21,7 +21,7 @@ export function getJSONFromLavu(orderData) {
   const totalPrecioUnitario = roundAmount(total / 1.23);
   const totalImpServicio = roundAmount(totalPrecioUnitario * 0.10);
   const totalIva = roundAmount(total - (totalPrecioUnitario + totalImpServicio));
-  const totalComprobante = totalPrecioUnitario + totalIva + totalImpServicio;
+  const totalComprobante = roundAmount(totalPrecioUnitario + totalIva + totalImpServicio);
 
   jsonTemplate.Documentos[0].Lineas[0].PrecioUnitario = totalPrecioUnitario
   jsonTemplate.Documentos[0].Lineas[0].Impuestos[0].MontoImp = totalIva;
