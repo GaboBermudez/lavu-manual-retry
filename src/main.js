@@ -20,10 +20,12 @@ async function main() {
     const jsonToGTI = getJSONFromLavu(orderToSubmit.elements[0]);
     loggerOrden.info(`JSON PARA GTI: \n ${JSON.stringify(jsonToGTI)}`);
 
+
+
+    const result = await GTService.postInvoice(jsonToGTI);
+    loggerOrden.info(`Respuesta de GTI: \n${JSON.stringify(result)}`);
+
     return;
-
-    const exemption = getRowValue(orderToSubmit, 'exemption_id');
-
     // SI ES DE SELINA NO SE HACE DOCUMENTO
     if ((exemption && exemption === '1004') || !jsonToGTI) {
       loggerOrden.info('Es cuenta de Selina o cuenta en cero. NO SE HACE FACTURA.')
@@ -31,7 +33,7 @@ async function main() {
     else { // SE HACE DOCUMENTO ELECTRONICO
 
       const result = await GTService.postInvoice(jsonToGTI);
-      loggerOrden.info(`Respuesta de GTI: \n${JSON.stringify(result.data.Respuestas[0])}`);
+      loggerOrden.info(`Respuesta de GTI: \n${JSON.stringify(result)}`);
 
       if (result.data.Respuestas[0].Error === 'Exitoso') {
         loggerOrden.info('EXITO envio de documento');
