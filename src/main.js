@@ -21,11 +21,10 @@ async function main() {
     loggerOrden.info(`JSON PARA GTI: \n ${JSON.stringify(jsonToGTI)}`);
 
 
-
     const result = await GTService.postInvoice(jsonToGTI);
-    loggerOrden.info(`Respuesta de GTI: \n${JSON.stringify(result)}`);
-
+    loggerOrden.info(`Respuesta de GTI: \n${JSON.stringify(result.data)}`);
     return;
+
     // SI ES DE SELINA NO SE HACE DOCUMENTO
     if ((exemption && exemption === '1004') || !jsonToGTI) {
       loggerOrden.info('Es cuenta de Selina o cuenta en cero. NO SE HACE FACTURA.')
